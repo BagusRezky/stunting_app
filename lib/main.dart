@@ -8,16 +8,7 @@ import 'configs/themes/theme.dart';
 import 'utils/services/sentry_services.dart';
 
 void main() async {
-  /// Change your options.dns with your project !!!!
-  await SentryFlutter.init(
-    (options) {
-      options.dsn =
-          'https://30fca41e405dfa6b23883af045e4658e@o4505883092975616.ingest.sentry.io/4506539099095040';
-      options.tracesSampleRate = 1.0;
-      options.beforeSend = filterSentryErrorBeforeSend;
-    },
-    appRunner: () => runApp(const MyApp()),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,14 +23,8 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          title: 'Venturo Core',
+          title: 'STUNTCARE',
           debugShowCheckedModeBanner: false,
-          locale: const Locale('id'),
-          fallbackLocale: const Locale('id'),
-          supportedLocales: const [
-            Locale('en', 'US'),
-            Locale('id'),
-          ],
           // initialBinding: , Jika memiliki global bindding
           initialRoute: Routes.splashRoute,
           theme: themeLight,
