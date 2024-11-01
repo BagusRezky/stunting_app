@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:stunting_app/features/login/controllers/login_controller.dart';
 import 'package:stunting_app/features/splash/constants/splash_assets_constant.dart';
 import 'package:stunting_app/shared/styles/color_style.dart';
 import 'package:stunting_app/shared/styles/google_text_style.dart';
@@ -8,7 +10,6 @@ import 'package:stunting_app/shared/widgets/custom_fields.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-
   final assetsConstant = SplashAssetsConstant();
   @override
   Widget build(BuildContext context) {
@@ -76,7 +77,9 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               CustomButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.find<LoginController>().login();
+                },
                 text: 'Masuk',
                 // height: 50.h,
                 // width: double.infinity,

@@ -27,6 +27,7 @@ dependencies:
 
   # Logger
   sentry_flutter: ^7.18.0
+  carousel_slider: ^5.0.0
 
   # win32: ^5.7.2
   # collection: ^1.18.0
