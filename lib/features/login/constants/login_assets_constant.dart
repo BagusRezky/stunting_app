@@ -1,3 +1,3 @@
-class SplashApiConstant {
+class LoginAssetsConstant {
   final String example = 'example';
 }
