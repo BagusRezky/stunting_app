@@ -2,6 +2,7 @@ abstract class Routes {
   static const String splashRoute = '/splash';
   static const String onboardRoute = '/onboard';
   static const String loginRoute = '/login';
+  static const String registerRoute = '/register';
   static const String mainRoute = '/main';
   static const String homeRoute = '/home';
   static const String trackerRoute = '/tracker';

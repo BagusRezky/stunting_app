@@ -12,6 +12,6 @@ class ArtikelController extends GetxController {
   }
 
   void back(){
-     Get.offNamed(Routes.mainRoute);
+     Get.back();
   }
 }

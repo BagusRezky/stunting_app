@@ -13,6 +13,8 @@ import 'package:stunting_app/features/onboarding/bindings/onboarding_binding.dar
 import 'package:stunting_app/features/onboarding/view/ui/onboarding_screen.dart';
 import 'package:stunting_app/features/profile/bindings/profile_binding.dart';
 import 'package:stunting_app/features/profile/view/ui/profile_screen.dart';
+import 'package:stunting_app/features/register/bindings/register_bindings.dart';
+import 'package:stunting_app/features/register/view/ui/register.dart';
 import 'package:stunting_app/features/splash/bindings/splash_binding.dart';
 import 'package:stunting_app/features/splash/view/ui/splash_screen.dart';
 import 'package:stunting_app/features/tracker/bindings/tracker_binding.dart';
@@ -33,6 +35,11 @@ abstract class Pages {
       name: Routes.loginRoute,
       page: () => LoginScreen(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: Routes.registerRoute,
+      page: () => RegisterScreen(),
+      binding: RegisterBinding(),
     ),
     GetPage(
       name: Routes.mainRoute,

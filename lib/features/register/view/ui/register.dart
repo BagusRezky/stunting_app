@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:stunting_app/configs/routes/route.dart';
-import 'package:stunting_app/features/login/controllers/login_controller.dart';
+import 'package:stunting_app/features/register/controllers/register_controller.dart';
 import 'package:stunting_app/features/splash/constants/splash_assets_constant.dart';
 import 'package:stunting_app/shared/styles/color_style.dart';
 import 'package:stunting_app/shared/styles/google_text_style.dart';
 import 'package:stunting_app/shared/widgets/custom_button.dart';
 import 'package:stunting_app/shared/widgets/custom_fields.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
   final assetsConstant = SplashAssetsConstant();
   @override
   Widget build(BuildContext context) {
+    Get.put(RegisterController());
     return Scaffold(
         backgroundColor: ColorStyle.white,
         appBar: AppBar(
           backgroundColor: ColorStyle.white,
           centerTitle: true,
-          title: const Text('Masuk'),
+          title: const Text('Daftar Akun'),
           titleTextStyle: GoogleTextStyle.fw600
               .copyWith(color: ColorStyle.dark, fontSize: 17.sp),
         ),
@@ -52,6 +52,19 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 40.h),
               CustomFieldContainer(
+                label: Text('Nama',
+                    style: GoogleTextStyle.fw600
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Enter your text here",
+                    hintStyle: GoogleTextStyle.fw200
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              CustomFieldContainer(
                 label: Text('Email',
                     style: GoogleTextStyle.fw600
                         .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
@@ -77,9 +90,22 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              CustomFieldContainer(
+                label: Text('Konfirmasi Password',
+                    style: GoogleTextStyle.fw600
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Enter your text here",
+                    hintStyle: GoogleTextStyle.fw200
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
               CustomButton(
                 onPressed: () {
-                  Get.find<LoginController>().login();
+                  Get.find<RegisterController>().login();
                 },
                 text: 'Masuk',
                 // height: 50.h,
@@ -94,17 +120,17 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Belum memiliki akun?',
+                    'Sudah memiliki akun?',
                     style: GoogleTextStyle.fw400
                         .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
                     textAlign: TextAlign.center,
                   ),
                   InkWell(
                     onTap: () {
-                     Get.find<LoginController>().register();
+                      Get.find<RegisterController>().login();
                     },
                     child: Text(
-                      'Register',
+                      'Login',
                       style: GoogleTextStyle.fw400
                           .copyWith(color: ColorStyle.primary, fontSize: 14.sp),
                     ),
