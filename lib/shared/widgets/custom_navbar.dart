@@ -17,15 +17,15 @@ class CustomNavBar extends StatelessWidget {
           BottomNavigationBarItem(
             backgroundColor: ColorStyle.white,
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Beranda',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.trending_up),
-            label: 'Tracker',
+            label: 'Pelacak Stunting',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
+            icon: Icon(Icons.calendar_month_outlined),
+            label: 'Jadwal',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

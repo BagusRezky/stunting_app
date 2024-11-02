@@ -32,7 +32,7 @@ class CustomFieldContainer extends StatelessWidget {
           padding: padding ?? EdgeInsets.all(1.w),
           margin: margin ?? const EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(
-            color: backgroundColor ?? ColorStyle.disable,
+            color: backgroundColor ?? const Color.fromARGB(255, 250, 247, 247),
             borderRadius: BorderRadius.circular(borderRadius!),
             border: border ?? Border.all(color: ColorStyle.dark),
           ),

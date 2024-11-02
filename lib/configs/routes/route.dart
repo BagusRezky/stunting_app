@@ -8,5 +8,8 @@ abstract class Routes {
   static const String historyRoute = '/history';
   static const String profileRoute = '/profile';
   static const String artikelRoute = '/artikel';
+  static const String detailArtikelRoute = '/detail-artikel';
   static const String videoRoute = '/video';
+  static const String detailVideoRoute = '/detail-video';
+  static const String jadwalRoute = '/jadwal';
 }

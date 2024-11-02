@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:stunting_app/configs/routes/route.dart';
 import 'package:stunting_app/shared/styles/color_style.dart';
 import 'package:stunting_app/shared/styles/google_text_style.dart';
 
@@ -10,8 +12,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> imagePaths = [
-      'assets/images/artikel1.png',
-      'assets/images/artikel1.png',
       'assets/images/artikel1.png',
       'assets/images/artikel1.png',
       'assets/images/artikel1.png',
@@ -34,10 +34,15 @@ class HomeScreen extends StatelessWidget {
                       style: GoogleTextStyle.fw600
                           .copyWith(color: ColorStyle.dark, fontSize: 16.sp),
                     ),
-                    Text(
-                      'Lainnya',
-                      style: GoogleTextStyle.fw400
-                          .copyWith(color: ColorStyle.primary, fontSize: 14.sp),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.artikelRoute);
+                      },
+                      child: Text(
+                        'Lainnya',
+                        style: GoogleTextStyle.fw400.copyWith(
+                            color: ColorStyle.primary, fontSize: 14.sp),
+                      ),
                     ),
                   ],
                 ),
