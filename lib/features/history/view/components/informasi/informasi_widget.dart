@@ -27,8 +27,13 @@ class _CategorySelectorState extends State<CategorySelector> {
     final historyController = Get.find<HistoryController>();
     if (historyController.historyData.isEmpty) return '-';
 
-    final latestData =
-        historyController.historyData.first; // Mengambil data terbaru
+    // Mengambil data terakhir (paling baru)
+    final latestData = historyController.historyData
+        .lastWhere((data) => data != null, orElse: () => null);
+
+    if (latestData == null) return '-';
+
+    print('Latest data: $latestData'); // Untuk debugging
 
     switch (category) {
       case 'Berat / Umur':
@@ -43,6 +48,9 @@ class _CategorySelectorState extends State<CategorySelector> {
   }
 
   Color getStatusColor(String status) {
+    // Tambahkan print untuk debugging
+    print('Current status: $status');
+
     if (status.toLowerCase().contains('normal') ||
         status.toLowerCase().contains('baik')) {
       return Colors.green;
@@ -75,6 +83,11 @@ class _CategorySelectorState extends State<CategorySelector> {
           Obx(() {
             final status = getStatus(selectedCategory!);
             final statusColor = getStatusColor(status);
+
+            // Tambahkan print untuk debugging
+            print('Selected category: $selectedCategory');
+            print('Current status: $status');
+            print('Status color: $statusColor');
 
             return ResultContainer(
               category: selectedCategory!,

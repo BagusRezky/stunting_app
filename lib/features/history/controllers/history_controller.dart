@@ -68,7 +68,17 @@ class HistoryController extends GetxController {
       if (response.statusCode == 200) {
         final decodedResponse = jsonDecode(response.body);
         if (decodedResponse['data'] != null) {
-          historyData.value = decodedResponse['data'];
+          // Sort data berdasarkan tanggal, dari yang terlama ke terbaru
+          var sortedData = List<dynamic>.from(decodedResponse['data']);
+          sortedData.sort((a, b) {
+            DateTime dateA = DateTime.parse(a['service_date']);
+            DateTime dateB = DateTime.parse(b['service_date']);
+            return dateA.compareTo(dateB); // Urutkan dari terlama ke terbaru
+          });
+
+          historyData.value = sortedData;
+          print(
+              'History data sorted: ${historyData.length} items'); // Untuk debugging
         }
       }
     } catch (e) {
