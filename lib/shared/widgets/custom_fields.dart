@@ -10,6 +10,7 @@ class CustomFieldContainer extends StatelessWidget {
   final Color? backgroundColor;
   final double? borderRadius;
   final BoxBorder? border;
+  final bool isRequired;
 
   const CustomFieldContainer({
     super.key,
@@ -20,6 +21,7 @@ class CustomFieldContainer extends StatelessWidget {
     this.backgroundColor,
     this.borderRadius = 8.0,
     this.border,
+    this.isRequired = false,
   });
 
   @override
@@ -27,7 +29,20 @@ class CustomFieldContainer extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        label ?? const Text(''),
+        if (label != null)
+          Row(
+            children: [
+              label!,
+              if (isRequired)
+                const Text(
+                  'Wajib Diisi',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+            ],
+          ),
         Container(
           padding: padding ?? EdgeInsets.all(1.w),
           margin: margin ?? const EdgeInsets.symmetric(vertical: 8.0),

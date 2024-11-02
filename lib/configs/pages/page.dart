@@ -19,6 +19,8 @@ import 'package:stunting_app/features/splash/bindings/splash_binding.dart';
 import 'package:stunting_app/features/splash/view/ui/splash_screen.dart';
 import 'package:stunting_app/features/tracker/bindings/tracker_binding.dart';
 import 'package:stunting_app/features/tracker/view/ui/tracker_screen.dart';
+import 'package:stunting_app/features/video/bindings/video_binding.dart';
+import 'package:stunting_app/features/video/view/ui/video_screen.dart';
 
 abstract class Pages {
   static final pages = [
@@ -69,6 +71,11 @@ abstract class Pages {
       name: Routes.artikelRoute,
       page: () => ArtikelScreen(),
       binding: ArtikelBinding(),
+    ),
+    GetPage(
+      name: Routes.videoRoute,
+      page: () => VideoScreen(),
+      binding: VideoBinding(),
     ),
   ];
 }

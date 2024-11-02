@@ -27,6 +27,14 @@ class CustomNavBar extends StatelessWidget {
             icon: Icon(Icons.calendar_month_outlined),
             label: 'Jadwal',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.history),
+          //   label: 'Riwayat',
+          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.restaurant_menu),
+            label: 'Saran Makan',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',

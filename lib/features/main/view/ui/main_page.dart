@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stunting_app/features/history/view/ui/history_screen.dart';
 import 'package:stunting_app/features/home/view/ui/home.dart';
 import 'package:stunting_app/features/jadwal/view/ui/jadwal_screen.dart';
 import 'package:stunting_app/features/profile/view/ui/profile_screen.dart';
+import 'package:stunting_app/features/saran_makan/view/ui/saran_makan.dart';
 import 'package:stunting_app/features/tracker/view/ui/tracker_screen.dart';
 import 'package:stunting_app/shared/controllers/navigation_controller.dart';
 import 'package:stunting_app/shared/widgets/custom_navbar.dart';
@@ -15,6 +17,8 @@ class MainScreen extends StatelessWidget {
     const HomeScreen(),
     TrackerScreen(),
     JadwalScreen(),
+    // HistoryScreen(),
+    SaranMakanScreen(),
     const ProfileScreen(),
   ];
 

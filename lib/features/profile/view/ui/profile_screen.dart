@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:stunting_app/features/profile/controllers/profile_controller.dart';
 import 'package:stunting_app/features/profile/view/components/profile_info.dart';
+import 'package:stunting_app/shared/styles/color_style.dart';
+import 'package:stunting_app/shared/styles/google_text_style.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,6 +16,9 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
+        centerTitle: true,
+        titleTextStyle: GoogleTextStyle.fw600
+            .copyWith(color: ColorStyle.dark, fontSize: 17.sp),
       ),
       body: Center(
         child: Obx(() {

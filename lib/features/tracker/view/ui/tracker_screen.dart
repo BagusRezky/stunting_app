@@ -23,6 +23,14 @@ class TrackerScreen extends StatelessWidget {
           title: const Text('Pelacak Stunting'),
           titleTextStyle: GoogleTextStyle.fw600
               .copyWith(color: ColorStyle.dark, fontSize: 17.sp),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.history),
+              onPressed: () {
+                Get.find<TrackerController>().simpan();
+              },
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
