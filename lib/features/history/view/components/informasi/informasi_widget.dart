@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:stunting_app/features/history/controllers/history_controller.dart';
 import 'package:stunting_app/features/history/view/components/informasi/indeks.dart';
 import 'package:stunting_app/features/history/view/components/informasi/zscore_description.dart';
 
+// category_selector.dart
 class CategorySelector extends StatefulWidget {
   const CategorySelector({super.key});
 
@@ -14,18 +17,46 @@ class _CategorySelectorState extends State<CategorySelector> {
   String? selectedCategory;
   Color selectedColor = Colors.transparent;
 
-  // Status dan Z-Score yang berbeda untuk setiap kategori
-  Map<String, String> statusMap = {
-    'Berat / Umur': 'Gizi Kurang (Wasted)',
-    'Tinggi / Umur': 'Pendek (Stunting)',
-    'Berat / Tinggi': 'Normal',
-  };
+  @override
+  void initState() {
+    super.initState();
+    selectedCategory = 'Berat / Umur'; // Set default category
+  }
 
-  Map<String, double> zScoreMap = {
-    'Berat / Umur': -1.5,
-    'Tinggi / Umur': -2.0,
-    'Berat / Tinggi': 0.0,
-  };
+  String getStatus(String category) {
+    final historyController = Get.find<HistoryController>();
+    if (historyController.historyData.isEmpty) return '-';
+
+    final latestData =
+        historyController.historyData.first; // Mengambil data terbaru
+
+    switch (category) {
+      case 'Berat / Umur':
+        return latestData['weight_for_age_res'] ?? '-';
+      case 'Tinggi / Umur':
+        return latestData['height_for_age_res'] ?? '-';
+      case 'Berat / Tinggi':
+        return latestData['bmi_res'] ?? '-';
+      default:
+        return '-';
+    }
+  }
+
+  Color getStatusColor(String status) {
+    if (status.toLowerCase().contains('normal') ||
+        status.toLowerCase().contains('baik')) {
+      return Colors.green;
+    } else if (status.toLowerCase().contains('risiko') ||
+        status.toLowerCase().contains('waspada')) {
+      return Colors.orange;
+    } else if (status.toLowerCase().contains('kurang') ||
+        status.toLowerCase().contains('pendek') ||
+        status.toLowerCase().contains('stunting')) {
+      return Colors.red;
+    } else {
+      return Colors.grey;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +71,17 @@ class _CategorySelectorState extends State<CategorySelector> {
           ],
         ),
         const SizedBox(height: 20.0),
-        // Menampilkan container hasil sesuai kategori yang dipilih
         if (selectedCategory != null)
-          ResultContainer(
+          Obx(() {
+            final status = getStatus(selectedCategory!);
+            final statusColor = getStatusColor(status);
+
+            return ResultContainer(
               category: selectedCategory!,
-              status: statusMap[selectedCategory]!,
-              zScore: zScoreMap[selectedCategory]!),
+              status: status,
+              statusColor: statusColor,
+            );
+          }),
         const SizedBox(height: 20.0),
       ],
     );
@@ -57,9 +93,7 @@ class _CategorySelectorState extends State<CategorySelector> {
       onTap: () {
         setState(() {
           selectedCategory = category;
-          selectedColor = isSelected
-              ? Colors.transparent
-              : Colors.blue; // Ubah warna saat dipilih
+          selectedColor = isSelected ? Colors.transparent : Colors.blue;
         });
       },
       child: Container(
@@ -85,13 +119,13 @@ class _CategorySelectorState extends State<CategorySelector> {
 class ResultContainer extends StatelessWidget {
   final String category;
   final String status;
-  final double zScore;
+  final Color statusColor;
 
   const ResultContainer({
     super.key,
     required this.category,
     required this.status,
-    required this.zScore,
+    required this.statusColor,
   });
 
   String getDescription(String category) {
@@ -113,11 +147,11 @@ class ResultContainer extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(12.0),
-          height: 100.0,
           width: double.infinity,
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.green),
-            color: Colors.green.withOpacity(0.1),
+            border: Border.all(color: statusColor),
+            color: statusColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,17 +166,10 @@ class ResultContainer extends StatelessWidget {
               const SizedBox(height: 4.0),
               Text(
                 'Status: $status',
-                style: const TextStyle(
-                  color: Colors.green,
+                style: TextStyle(
+                  color: statusColor,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'Z-Score: $zScore',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.0,
                 ),
               ),
             ],

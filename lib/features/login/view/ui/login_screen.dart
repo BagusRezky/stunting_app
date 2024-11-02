@@ -79,17 +79,18 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            CustomButton(
-              onPressed: () {
-                _loginController.login();
-              },
-              text: 'Masuk',
-              backgroundColor: ColorStyle.primary,
-              textStyle: GoogleTextStyle.fw500.copyWith(
-                color: ColorStyle.white,
-                fontSize: 16.sp,
-              ),
-            ),
+            Obx(() => CustomButton(
+                  onPressed: () async {
+                    await _loginController.login();
+                  },
+                  text:
+                      _loginController.isLoading.value ? 'Loading...' : 'Masuk',
+                  backgroundColor: ColorStyle.primary,
+                  textStyle: GoogleTextStyle.fw500.copyWith(
+                    color: ColorStyle.white,
+                    fontSize: 16.sp,
+                  ),
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -101,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    _loginController.register();
+                    // _loginController.;
                   },
                   child: Text(
                     'Register',

@@ -14,101 +14,133 @@ class TrackerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(TrackerController());
+    final trackerController = Get.put(TrackerController());
+
     return Scaffold(
+      backgroundColor: ColorStyle.white,
+      appBar: AppBar(
         backgroundColor: ColorStyle.white,
-        appBar: AppBar(
-          backgroundColor: ColorStyle.white,
-          centerTitle: true,
-          title: const Text('Pelacak Stunting'),
-          titleTextStyle: GoogleTextStyle.fw600
-              .copyWith(color: ColorStyle.dark, fontSize: 17.sp),
-          actions: [
-            IconButton(
+        centerTitle: true,
+        title: const Text('Pelacak Stunting'),
+        titleTextStyle: GoogleTextStyle.fw600
+            .copyWith(color: ColorStyle.dark, fontSize: 17.sp),
+        actions: [
+          IconButton(
               icon: const Icon(Icons.history),
               onPressed: () {
-                Get.find<TrackerController>().simpan();
-              },
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                CustomFieldContainer(
-                  label: Text('Nama Lengkap',
-                      style: GoogleTextStyle.fw600
-                          .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
-                  child: TextField(
+                Get.find<TrackerController>().openHistory();
+              }),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Obx(() => DropdownButtonFormField<String>(
+                    value: trackerController.selectedChild.value.isEmpty
+                        ? null
+                        : trackerController.selectedChild.value,
+                    items: trackerController.childrenList
+                        .map((child) => DropdownMenuItem<String>(
+                              value: child['id'].toString(),
+                              child: Text(child['name']),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      trackerController.selectedChild.value = value!;
+                    },
                     decoration: InputDecoration(
-                      hintText: "Enter your text here",
-                      hintStyle: GoogleTextStyle.fw200
+                      labelText: 'Nama Anak',
+                      labelStyle: GoogleTextStyle.fw600
                           .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
-                      border: InputBorder.none,
+                      border: const OutlineInputBorder(),
                     ),
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                CustomFieldContainer(
-                  label: Text('Umur Sekarang (bulan)',
-                      style: GoogleTextStyle.fw600
-                          .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
-                  child: TextField(
+                  )),
+              SizedBox(height: 10.h),
+              // Tambahkan dropdown untuk gender
+              Obx(() => DropdownButtonFormField<String>(
+                    value: trackerController.selectedGender.value.isEmpty
+                        ? null
+                        : trackerController.selectedGender.value,
+                    items: trackerController.genderOptions
+                        .map((gender) => DropdownMenuItem<String>(
+                              value: gender['value'],
+                              child: Text(gender['label']),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      trackerController.selectedGender.value = value!;
+                    },
                     decoration: InputDecoration(
-                      hintText: "Enter your text here",
-                      hintStyle: GoogleTextStyle.fw200
+                      labelText: 'Jenis Kelamin',
+                      labelStyle: GoogleTextStyle.fw600
                           .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
-                      border: InputBorder.none,
+                      border: const OutlineInputBorder(),
                     ),
+                  )),
+              SizedBox(height: 10.h),
+              CustomFieldContainer(
+                label: Text('Umur Sekarang (bulan)',
+                    style: GoogleTextStyle.fw600
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
+                child: TextField(
+                  controller: trackerController.ageController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "Masukkan umur dalam bulan",
+                    hintStyle: GoogleTextStyle.fw200
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
+                    border: InputBorder.none,
                   ),
                 ),
-                SizedBox(height: 10.h),
-                CustomFieldContainer(
-                  label: Text('Berat Badan (kg)',
-                      style: GoogleTextStyle.fw600
-                          .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Enter your text here",
-                      hintStyle: GoogleTextStyle.fw200
-                          .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
-                      border: InputBorder.none,
-                    ),
+              ),
+              SizedBox(height: 10.h),
+              CustomFieldContainer(
+                label: Text('Berat Badan (kg)',
+                    style: GoogleTextStyle.fw600
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
+                child: TextField(
+                  controller: trackerController.weightController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "Masukkan berat dalam kg",
+                    hintStyle: GoogleTextStyle.fw200
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
+                    border: InputBorder.none,
                   ),
                 ),
-                SizedBox(height: 10.h),
-                CustomFieldContainer(
-                  label: Text('Panjang Badan (cm)',
-                      style: GoogleTextStyle.fw600
-                          .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Enter your text here",
-                      hintStyle: GoogleTextStyle.fw200
-                          .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
-                      border: InputBorder.none,
-                    ),
+              ),
+              SizedBox(height: 10.h),
+              CustomFieldContainer(
+                label: Text('Panjang Badan (cm)',
+                    style: GoogleTextStyle.fw600
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp)),
+                child: TextField(
+                  controller: trackerController.heightController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "Masukkan panjang dalam cm",
+                    hintStyle: GoogleTextStyle.fw200
+                        .copyWith(color: ColorStyle.dark, fontSize: 14.sp),
+                    border: InputBorder.none,
                   ),
                 ),
-                SizedBox(height: 20.h),
-                CustomButton(
-                  onPressed: () {
-                    Get.find<TrackerController>().simpan();
-                  },
-                  text: 'Simpan',
-                  // height: 50.h,
-                  // width: double.infinity,
-                  backgroundColor: ColorStyle.primary,
-                  textStyle: GoogleTextStyle.fw500.copyWith(
-                    color: ColorStyle.white,
-                    fontSize: 16.sp,
-                  ),
+              ),
+              SizedBox(height: 20.h),
+              CustomButton(
+                onPressed: trackerController.simpan,
+                text: 'Simpan',
+                backgroundColor: ColorStyle.primary,
+                textStyle: GoogleTextStyle.fw500.copyWith(
+                  color: ColorStyle.white,
+                  fontSize: 16.sp,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
